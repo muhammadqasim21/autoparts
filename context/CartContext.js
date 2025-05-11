@@ -1,16 +1,17 @@
 import { createContext, useContext, useState, useEffect } from 'react';
 import { useAuth } from './AuthContext';
 import axios from 'axios';
-
+import { useRouter } from 'next/router';
 const CartContext = createContext();
 
 export function CartProvider({ children }) {
   const [cartItems, setCartItems] = useState([]);
   const { user } = useAuth();
+  const router = useRouter();
   console.log(user);
   // ✅ Fetch cart from DB when user logs in
   useEffect(() => {
-    if (user) {
+    if (user ) {
       fetchCartFromDB();
     } else {
       setCartItems([]); // Clear cart if user logs out

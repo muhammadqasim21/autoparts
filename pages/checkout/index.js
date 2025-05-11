@@ -24,6 +24,7 @@ export default function Checkout() {
   const tax = subtotal * 0.1; // 10% tax
   const total = subtotal + shipping + tax;
   console.log(user)
+  console.log(cartItems)
   const handleSubmit = async (e) => {
     e.preventDefault();
     const orderData = {

@@ -8,6 +8,7 @@ export default function Profile() {
   const { user } = useAuth();
   const [activeTab, setActiveTab] = useState('profile');
   const [orderHistory, setOrderHistory] = useState([]);
+  const [loading, setLoading] = useState(false);  // New state for loading
 
   useEffect(() => {
     if (activeTab === 'orders' && user?.email) {
@@ -16,6 +17,7 @@ export default function Profile() {
   }, [activeTab, user?.email]);
 
   const fetchOrders = async () => {
+    setLoading(true); // Start loading
     try {
       const baseUrl = process.env.NEXT_PUBLIC_API_URL;
       const response = await axios.get(`${baseUrl}/api/orders?email=${user.email}`);
@@ -23,6 +25,8 @@ export default function Profile() {
       setOrderHistory(response.data.orders);
     } catch (error) {
       console.error('Failed to fetch orders', error);
+    } finally {
+      setLoading(false); // Stop loading
     }
   };
 
@@ -80,25 +84,6 @@ export default function Profile() {
                     readOnly
                   />
                 </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700">Phone</label>
-                  <input
-                    type="tel"
-                    placeholder="Add phone number"
-                    className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 text-black"
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700">Address</label>
-                  <textarea
-                    placeholder="Add your address"
-                    rows={3}
-                    className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 text-black"
-                  />
-                </div>
-                <button className="bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700">
-                  Update Profile
-                </button>
               </div>
             </div>
           )}
@@ -108,7 +93,12 @@ export default function Profile() {
             <div className="p-6">
               <h2 className="text-2xl font-bold text-gray-900 mb-6">Order History</h2>
               <div className="space-y-6">
-                {orderHistory.length === 0 ? (
+                {loading ? (
+                  <div className="text-center">
+                    <div className="animate-spin rounded-full border-4 border-t-4 border-blue-600 w-12 h-12 mx-auto"></div>
+                    <p className="text-gray-500 mt-4">Loading your orders...</p>
+                  </div>
+                ) : orderHistory.length === 0 ? (
                   <p className="text-gray-500">No orders found.</p>
                 ) : (
                   orderHistory.map((order) => (
@@ -120,7 +110,6 @@ export default function Profile() {
                         </div>
                         <div className="text-right">
                           <p className="text-lg font-medium text-gray-900">RS {order.total.toFixed(2)}</p>
-                    
                         </div>
                       </div>
                       <div className="border-t pt-4">

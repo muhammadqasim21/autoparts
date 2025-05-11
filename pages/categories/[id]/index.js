@@ -65,11 +65,11 @@ export async function getStaticPaths() {
 
     return {
       paths,
-      fallback: false, // return 404 if category not found
+      fallback: 'blocking', // return 404 if category not found
     };
   } catch (error) {
     console.error('Error fetching categories:', error);
-    return { paths: [], fallback: false };
+    return { paths: [], fallback: 'blocking' };
   }
 }
 

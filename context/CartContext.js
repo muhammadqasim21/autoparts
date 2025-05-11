@@ -1,13 +1,13 @@
 import { createContext, useContext, useState, useEffect } from 'react';
 import { useAuth } from './AuthContext';
 import axios from 'axios';
-import { useRouter } from 'next/router';
+
 const CartContext = createContext();
 
 export function CartProvider({ children }) {
   const [cartItems, setCartItems] = useState([]);
   const { user } = useAuth();
-  const router = useRouter();
+
   console.log(user);
   // ✅ Fetch cart from DB when user logs in
   useEffect(() => {
@@ -126,10 +126,25 @@ export function CartProvider({ children }) {
       console.error('Error removing item from cart:', error);
     }
   };
+  const clearCart = async () => {
+    setCartItems([]);
+  }
+  const clearCartFromDB = async () => {
+    if (!user) return;
+
+    try {
+      await axios.post('/api/cart/clear', {
+        userEmail: user.email,
+      });
+      console.log("Cart cleared from database");
+    } catch (error) {
+      console.error('Error clearing cart from DB:', error);
+    }
+  };
 
   return (
     <CartContext.Provider
-      value={{ cartItems, addToCart, updateQuantity, removeItem }}
+      value={{ cartItems, addToCart, updateQuantity, removeItem, clearCartFromDB, clearCart }}
     >
       {children}
     </CartContext.Provider>

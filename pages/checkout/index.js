@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import Navbar from '../../components/Navbar';
@@ -7,10 +7,11 @@ import { useCart } from '../../context/CartContext';
 import { useOrder } from '../../context/OrderContext';
 import axios from 'axios';
 export default function Checkout() {
-  const {cartItems} = useCart();
+  const {cartItems, clearCartFromDB, clearCart} = useCart();
   const { placeOrder } = useOrder();
   const router = useRouter();
   const { user } = useAuth();
+  const hasPlacedOrder = useRef(false);
   const [shippingInfo, setShippingInfo] = useState({
     address: '',
     city: '',
@@ -25,6 +26,12 @@ export default function Checkout() {
   const total = subtotal + shipping + tax;
   console.log(user)
   console.log(cartItems)
+  useEffect(() => {
+    if (cartItems.length === 0 && !hasPlacedOrder.current) {
+      // Redirect to the cart page if the cart is empty
+      router.push('/cart'); 
+    }
+  }, [cartItems, router]);
   const handleSubmit = async (e) => {
     e.preventDefault();
     const orderData = {
@@ -49,6 +56,9 @@ export default function Checkout() {
   
       console.log('Order Placed:', response.data);
       placeOrder(orderData);
+      hasPlacedOrder.current = true;
+      clearCartFromDB();
+      clearCart();
       router.push('/order-confirmation');
     } catch (error) {
       console.error('Error placing order:', error);

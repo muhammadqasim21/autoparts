@@ -1,8 +1,9 @@
 import axios from 'axios';
 import Link from 'next/link';
 import Navbar from '../../../components/Navbar';
-
+import { useCart } from '../../../context/CartContext';
 export default function CategoryPage({ categoryName, products }) {
+  const { addToCart } = useCart();
   return (
     <div className="min-h-screen bg-gray-50">
       <Navbar />
@@ -31,7 +32,8 @@ export default function CategoryPage({ categoryName, products }) {
                   </Link>
                   <p className="mt-2 text-gray-500">RS {product.price}</p>
                   <div className="mt-4 space-y-2">
-                    <button className="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700">
+                    <button onClick={() => addToCart(product)}
+                     className="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700">
                       Add to Cart
                     </button>
                     <Link

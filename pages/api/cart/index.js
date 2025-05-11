@@ -10,7 +10,7 @@ async function handler(req, res) {
       }
     
     const client = await MongoClient.connect(
-      "mongodb+srv://mq08460:3MY3p2JDjarmcwbt@motohub.e4elfjt.mongodb.net/motohub?retryWrites=true&w=majority&appName=MotoHub"
+        process.env.MONGODB_URI
     );
 
     try {
@@ -34,7 +34,7 @@ async function handler(req, res) {
     }
 
     const client = await MongoClient.connect(
-      "mongodb+srv://mq08460:3MY3p2JDjarmcwbt@motohub.e4elfjt.mongodb.net/motohub?retryWrites=true&w=majority&appName=MotoHub"
+      process.env.MONGODB_URI
     );
 
     try {
@@ -72,7 +72,7 @@ async function handler(req, res) {
     }
 
     const client = await MongoClient.connect(
-      "mongodb+srv://mq08460:3MY3p2JDjarmcwbt@motohub.e4elfjt.mongodb.net/motohub?retryWrites=true&w=majority&appName=MotoHub"
+      process.env.MONGODB_URI
     );
 
     try {
@@ -99,7 +99,7 @@ async function handler(req, res) {
         return res.status(400).json({ message: 'Missing required fields' });
       }
       
-      const client = await MongoClient.connect("mongodb+srv://mq08460:3MY3p2JDjarmcwbt@motohub.e4elfjt.mongodb.net/motohub?retryWrites=true&w=majority&appName=MotoHub")
+      const client = await MongoClient.connect(process.env.MONGODB_URI)
       
       try {
         const db = client.db();

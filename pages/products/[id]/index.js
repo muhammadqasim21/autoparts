@@ -1,8 +1,9 @@
 import Link from 'next/link';
 import Navbar from '../../../components/Navbar';
 import axios from 'axios';
+import { useCart } from '../../../context/CartContext';
 export default function ProductDetail({ product }) {
-  
+  const { addToCart } = useCart();
 
   if (!product) {
     return (
@@ -63,7 +64,9 @@ export default function ProductDetail({ product }) {
               </div>
 
               <div className="mt-8 space-y-4">
-                <button className="w-full bg-blue-600 text-white py-3 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                <button 
+                onClick={() => addToCart(product)}
+                className="w-full bg-blue-600 text-white py-3 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
                   Add to Cart
                 </button>
               </div>

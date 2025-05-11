@@ -78,7 +78,8 @@ export default function ProductDetail({ product }) {
   );
 } 
 export async function getStaticPaths() {
-  const res = await axios.get('http://localhost:3000/api/products');
+  const baseUrl = process.env.NEXT_PUBLIC_API_URL;
+  const res = await axios.get(`${baseUrl}/api/products`);
   const products = res.data;
   const paths = products.map((product) => ({
     params: { id: String(product.id) },
@@ -90,7 +91,8 @@ export async function getStaticPaths() {
 }
 export async function getStaticProps({ params }) {
   const { id } = params;
-  const res = await axios.get('http://localhost:3000/api/products');
+  const baseUrl = process.env.NEXT_PUBLIC_API_URL;
+  const res = await axios.get(`${baseUrl}/api/products`);
   const products = res.data;
   const product = products.find((product) => product.id === Number(id));
   return {

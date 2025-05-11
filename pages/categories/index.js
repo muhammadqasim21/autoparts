@@ -36,7 +36,8 @@ export default function Categories({categories}) {
   );
 } 
 export async function getStaticProps(){
-  const res = await axios.get('http://localhost:3000/api/categories');
+  const baseUrl = process.env.NEXT_PUBLIC_API_URL;
+  const res = await axios.get(`${baseUrl}/api/categories`);
   const categories = res.data;
   if(!categories){
     return {

@@ -100,9 +100,10 @@ export default function Home({categories, featuredProducts}) {
   );
 }
 export async function getStaticProps(){
-  const res = await axios.get('http://localhost:3000/api/categories');
+  const baseUrl = process.env.NEXT_PUBLIC_API_URL;
+  const res = await axios.get(`${baseUrl}/api/categories`);
   const categories = res.data;
-  const productsRes = await axios.get('http://localhost:3000/api/products');
+  const productsRes = await axios.get(`${baseUrl}/api/products`);
   const products = productsRes.data;
   const featuredProducts = products.filter((product) => product.price>5000);
   if(!categories){

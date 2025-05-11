@@ -150,8 +150,8 @@
 // } 
 
 import Link from 'next/link';
-import Navbar from '../components/Navbar';
-import { useOrder } from '../context/OrderContext'; // ✅ Import order context
+import Navbar from '../../components/Navbar';
+import { useOrder } from '../../context/OrderContext'; // ✅ Import order context
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 

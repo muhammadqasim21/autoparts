@@ -56,7 +56,8 @@ export default function CategoryPage({ categoryName, products }) {
 // Generate paths for static generation
 export async function getStaticPaths() {
   try {
-    const res = await axios.get('http://localhost:3000/api/categories');
+    const baseUrl = process.env.NEXT_PUBLIC_API_URL;
+    const res = await axios.get(`${baseUrl}/api/categories`);
     const categories = res.data;
     const paths = categories.map((cat) => ({
       params: { id: String(cat.id)},
@@ -78,11 +79,12 @@ export async function getStaticProps({ params }) {
 
   try {
     // Fetch single category
-    const categoryRes = await axios.get(`http://localhost:3000/api/categories/${id}`);
+    const baseUrl = process.env.NEXT_PUBLIC_API_URL;
+    const categoryRes = await axios.get(`${baseUrl}/api/categories/${id}`);
     const categoryData = categoryRes.data;
     // console.log(categoryData);
     // Fetch all products
-    const productsRes = await axios.get('http://localhost:3000/api/products');
+    const productsRes = await axios.get(`${baseUrl}/api/products`);
     const allProducts = productsRes.data;
     // console.log(allProducts);
     // Filter products by category ID

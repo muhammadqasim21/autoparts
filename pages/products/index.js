@@ -44,7 +44,8 @@ export default function Products({products}) {
   );
 } 
 export async function getStaticProps(){
-  const res = await axios.get('http://localhost:3000/api/products');
+  const baseUrl = process.env.NEXT_PUBLIC_API_URL;
+  const res = await axios.get(`${baseUrl}/api/products`);
   const products = res.data;
   if(!products){
     return {

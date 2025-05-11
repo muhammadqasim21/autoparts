@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
-import Navbar from '../components/Navbar';
-import { useAuth } from '../context/AuthContext';
-import { useCart } from '../context/CartContext';
-import { useOrder } from '../context/OrderContext';
+import Navbar from '../../components/Navbar';
+import { useAuth } from '../../context/AuthContext';
+import { useCart } from '../../context/CartContext';
+import { useOrder } from '../../context/OrderContext';
 import axios from 'axios';
 export default function Checkout() {
   const {cartItems} = useCart();
@@ -43,7 +43,8 @@ export default function Checkout() {
     };
     try {
       // API call to place order
-      const response = await axios.post('http://localhost:3000/api/orders', orderData);
+      const baseUrl = process.env.NEXT_PUBLIC_API_URL;
+      const response = await axios.post(`${baseUrl}/api/orders`, orderData);
   
       console.log('Order Placed:', response.data);
       placeOrder(orderData);

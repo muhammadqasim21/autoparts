@@ -43,7 +43,8 @@ export default function Signup() {
     if (hasError) return;
   
     try {
-      const res = await axios.post('/api/signup', {
+      const baseUrl = process.env.NEXT_PUBLIC_API_URL;
+      const res = await axios.post(`${baseUrl}/api/signup`, {
         firstName,
         lastName,
         email,

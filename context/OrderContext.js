@@ -5,7 +5,6 @@ const OrderContext = createContext();
 export function OrderProvider({ children }) {
   const [order, setOrder] = useState(null);
 
-  // Function to save placed order
   const placeOrder = (orderData) => {
     setOrder(orderData);
   };
@@ -17,7 +16,7 @@ export function OrderProvider({ children }) {
   );
 }
 
-// Hook to use order context easily
+
 export function useOrder() {
   return useContext(OrderContext);
 }

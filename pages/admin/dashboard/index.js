@@ -4,11 +4,10 @@ import Link from 'next/link';
 import { useAuth } from '../../../context/AuthContext';
 export default function AdminDashboard() {
   const router = useRouter();
+  const {admin} = useAuth();
   const {logoutAdmin} = useAuth();
   useEffect(() => {
-    // Check if admin is logged in
-    const adminToken = localStorage.getItem('adminToken');
-    if (!adminToken) {
+    if (!admin) {
       router.push('/admin/login');
     }
   }, []);
@@ -27,7 +26,7 @@ export default function AdminDashboard() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-          {/* Add Product Card */}
+          
           <Link href="/admin/add-product" className="block">
             <div className="bg-white shadow-lg rounded-lg p-6 hover:shadow-xl transition-shadow duration-300">
               <div className="text-center">
@@ -42,7 +41,6 @@ export default function AdminDashboard() {
             </div>
           </Link>
 
-          {/* Add Category Card */}
           <Link href="/admin/add-category" className="block">
             <div className="bg-white shadow-lg rounded-lg p-6 hover:shadow-xl transition-shadow duration-300">
               <div className="text-center">

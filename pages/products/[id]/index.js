@@ -41,7 +41,7 @@ export default function ProductDetail({ product }) {
             {/* Product Info */}
             <div>
               <h1 className="text-3xl font-bold text-gray-900">{product.name}</h1>
-              {/* <p className="mt-2 text-sm text-gray-500">{product.category}</p> */}
+              
               <p className="mt-4 text-2xl font-bold text-gray-900">RS {product.price}</p>
               
               <div className="mt-6">

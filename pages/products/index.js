@@ -20,7 +20,7 @@ export default function Products({products}) {
                 <Link href={`/products/${product.id}`} className="block">
                   <h3 className="text-lg font-medium text-gray-900 hover:text-blue-600">{product.name}</h3>
                 </Link>
-                {/* <p className="mt-1 text-sm text-gray-500">{product.category}</p> */}
+                
                 <p className="mt-2 text-gray-900 font-medium">RS {product.price}</p>
                 <div className="mt-4 space-y-2">
                   <button 

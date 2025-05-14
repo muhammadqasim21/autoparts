@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import axios from 'axios';
+import { useAuth } from '../../../context/AuthContext';
 export default function AddProduct() {
   const router = useRouter();
   const [categories, setCategories] = useState([]);
@@ -15,16 +16,13 @@ export default function AddProduct() {
   });
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
-
+  const {admin} = useAuth();
   useEffect(() => {
-    // Check if admin is logged in
-    const adminToken = localStorage.getItem('adminToken');
-    if (!adminToken) {
+    if (!admin) {
       router.push('/admin/login');
-      return; // stop here if no admin
+      return; 
     }
   
-    // ✅ Define async function inside useEffect
     const fetchCategories = async () => {
       try {
         const res = await axios.get('/api/categories');
@@ -34,7 +32,7 @@ export default function AddProduct() {
       }
     };
   
-    fetchCategories(); // call the async function
+    fetchCategories(); 
   
   }, []);
   
@@ -45,7 +43,7 @@ export default function AddProduct() {
     setSuccess('');
 
     try {
-      // Convert comma-separated string to array
+      
       const featuresArray = formData.features.split(',').map(f => f.trim());
   
       const productData = {

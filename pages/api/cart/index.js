@@ -1,4 +1,3 @@
-// pages/api/cart.js
 import { MongoClient } from "mongodb";
 
 async function handler(req, res) {
@@ -26,7 +25,6 @@ async function handler(req, res) {
       await client.close();
     }
   } else if (req.method === 'POST') {
-    // Add an item to the cart for the logged-in user
     const { product, userEmail, quantity } = req.body;
 
     if (!userEmail || !product || !quantity) {
@@ -41,18 +39,15 @@ async function handler(req, res) {
       const db = client.db();
       const cartCollection = db.collection('carts');
 
-      // Check if the product already exists in the user's cart
       const existingItem = await cartCollection.findOne({ userEmail, productId: product.id });
 
       if (existingItem) {
-        // Update the quantity if the product exists
         await cartCollection.updateOne(
           { userEmail, productId: product.id,productName: product.name, productPrice: product.price },
           { $set: { quantity: existingItem.quantity + quantity } }
         );
         res.status(200).json({ message: 'Item quantity updated' });
       } else {
-        // Add new product to the cart
         const newItem = { userEmail, productId: product.id, productName: product.name, productPrice: product.price, quantity };
         await cartCollection.insertOne(newItem);
         res.status(201).json({ message: 'Item added to cart', newItem });
@@ -64,7 +59,6 @@ async function handler(req, res) {
       await client.close();
     }
   } else if (req.method === 'DELETE') {
-    // Remove an item from the cart for the logged-in user
     const { productId, userEmail } = req.body;
     console.log(productId, userEmail);
     if (!userEmail || !productId) {
@@ -92,7 +86,6 @@ async function handler(req, res) {
       await client.close();
     }
   } else if (req.method === 'PUT') {
-    // Update the quantity of an item in the cart for the logged-in user
     const { productId, userEmail, quantity } = req.body;
     console.log(productId, userEmail, quantity);
     if (!userEmail || !productId || quantity === undefined || quantity === null) {

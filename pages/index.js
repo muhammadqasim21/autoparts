@@ -8,7 +8,6 @@ export default function Home({categories, featuredProducts}) {
     <div className="min-h-screen bg-gray-50">
       <Navbar />
       
-      {/* Hero Section */}
       <div className="bg-blue-600 text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
           <div className="text-center">
@@ -22,7 +21,6 @@ export default function Home({categories, featuredProducts}) {
         </div>
       </div>
 
-      {/* Categories Section */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <h2 className="text-3xl font-extrabold text-gray-900 text-center mb-8">
           Browse Categories
@@ -41,7 +39,6 @@ export default function Home({categories, featuredProducts}) {
         </div>
       </div>
 
-      {/* Featured Products Section */}
       <div className="bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
           <h2 className="text-3xl font-extrabold text-gray-900 text-center mb-8">
@@ -65,7 +62,6 @@ export default function Home({categories, featuredProducts}) {
         </div>
       </div>
 
-      {/* Footer */}
       <footer className="bg-gray-800 text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">

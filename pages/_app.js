@@ -6,7 +6,7 @@ import { useAuth } from '../context/AuthContext';
 import { useEffect } from 'react';
 import { OrderProvider } from '../context/OrderContext';
 
-// List of public routes that don't require authentication
+
 const publicRoutes = ['/', '/login', '/signup','/admin/login'];
 
 function RouteGuard({ children }) {
@@ -14,21 +14,18 @@ function RouteGuard({ children }) {
   const { user, loading, admin } = useAuth();
 
   useEffect(() => {
-    // Check if the route is public
     const isPublicRoute = publicRoutes.includes(router.pathname);
     if (router.pathname.startsWith('/admin')) {
       if (!admin && !loading) {
         router.push('/admin/login');
       }
-      return; // don't run user route check
+      return; 
     }
-    // If not a public route and user is not authenticated, redirect to login
     if (!isPublicRoute && !user && !loading) {
       router.push('/login');
     }
   }, [router.pathname, user,admin, loading]);
 
-  // Show loading state while checking authentication
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">

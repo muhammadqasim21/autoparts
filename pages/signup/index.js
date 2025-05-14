@@ -21,20 +21,17 @@ export default function Signup() {
   
     const { firstName, lastName, email, password, confirmPassword } = formData;
   
-    // Reset warnings first
     setPasswordWarning('');
     setConfirmWarning('');
     setError('');
   
     let hasError = false;
   
-    // Password length check
     if (password.length < 7) {
       setPasswordWarning('Password must be at least 7 characters long.');
       hasError = true;
     }
   
-    // Confirm password match check
     if (password !== confirmPassword) {
       setConfirmWarning('Passwords do not match.');
       hasError = true;

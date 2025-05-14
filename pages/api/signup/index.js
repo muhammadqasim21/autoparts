@@ -17,15 +17,13 @@ async function handler(req, res) {
         return res.status(400).json({ message: 'Email already registered' });
       }
 
-      // ✅ Hash password securely
       const hashedPassword = await bcrypt.hash(password, 12);
 
-      // ✅ Save user
       await usersCollection.insertOne({
         firstName,
         lastName,
         userEmail: email,
-        password: hashedPassword, // ✅ hashed!
+        password: hashedPassword, 
         createdAt: new Date()
       });
 

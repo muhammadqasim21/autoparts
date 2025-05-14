@@ -2,8 +2,10 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import axios from 'axios';
+import { useAuth } from '../../../context/AuthContext';
 export default function AddCategory() {
   const router = useRouter();
+  const {admin} = useAuth();
   const [formData, setFormData] = useState({
     name: '',
     description: '',
@@ -12,9 +14,7 @@ export default function AddCategory() {
   const [success, setSuccess] = useState('');
 
   useEffect(() => {
-    // Check if admin is logged in
-    const adminToken = localStorage.getItem('adminToken');
-    if (!adminToken) {
+    if(!admin){
       router.push('/admin/login');
     }
   }, []);
@@ -25,7 +25,6 @@ export default function AddCategory() {
     setSuccess('');
 
     try {
-      // In a real app, this would be an API call to save the category
       console.log('Category data:', formData);
       const res = await axios.post('/api/categories', formData);
       if(res.status === 200){

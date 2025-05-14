@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import Navbar from '../../components/Navbar';
-import { useOrder } from '../../context/OrderContext'; // ✅ Import order context
+import { useOrder } from '../../context/OrderContext'; 
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 
@@ -8,14 +8,13 @@ export default function OrderConfirmation() {
   const { order } = useOrder();
   const router = useRouter();
 
-  // If no order exists in context, redirect to home
   useEffect(() => {
     if (!order) {
       router.push('/');
     }
   }, [order, router]);
 
-  if (!order) return null; // Optional: can show loading or nothing until redirect
+  if (!order) return null; 
 
   return (
     <div className="min-h-screen bg-gray-50">

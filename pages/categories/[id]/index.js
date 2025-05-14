@@ -25,7 +25,6 @@ export default function CategoryPage({ categoryName, products }) {
               <div key={product.id} className="bg-white rounded-lg shadow-lg overflow-hidden">
                 <div className="p-6">
                   <div className="aspect-w-1 aspect-h-1 w-full bg-gray-200 rounded-lg mb-4">
-                    {/* Image Placeholder */}
                   </div>
                   <Link href={`/products/${product.id}`} className="block">
                     <h3 className="text-lg font-medium text-gray-900 hover:text-blue-600">{product.name}</h3>
@@ -53,7 +52,7 @@ export default function CategoryPage({ categoryName, products }) {
   );
 }
 
-// Generate paths for static generation
+
 export async function getStaticPaths() {
   try {
     const baseUrl = process.env.NEXT_PUBLIC_API_URL;
@@ -65,7 +64,7 @@ export async function getStaticPaths() {
 
     return {
       paths,
-      fallback: 'blocking', // return 404 if category not found
+      fallback: 'blocking', 
     };
   } catch (error) {
     console.error('Error fetching categories:', error);
@@ -73,31 +72,25 @@ export async function getStaticPaths() {
   }
 }
 
-// Fetch data for each static page
+
 export async function getStaticProps({ params }) {
   const { id } = params;
 
   try {
-    // Fetch single category
     const baseUrl = process.env.NEXT_PUBLIC_API_URL;
     const categoryRes = await axios.get(`${baseUrl}/api/categories/${id}`);
     const categoryData = categoryRes.data;
-    // console.log(categoryData);
-    // Fetch all products
     const productsRes = await axios.get(`${baseUrl}/api/products`);
     const allProducts = productsRes.data;
-    // console.log(allProducts);
-    // Filter products by category ID
     const filteredProducts = allProducts.filter(
       (product) => String(product.category) === id
     );
-    // console.log(filteredProducts);
     return {
       props: {
         categoryName: categoryData.name || 'Category',
         products: filteredProducts,
       },
-      revalidate: 60, // ISR: Revalidate every 60 sec
+      revalidate: 60, 
     };
   } catch (error) {
     console.error('Error fetching category/products:', error);

@@ -24,7 +24,6 @@ export default function Login() {
       });
       console.log(res.data.firstname);
       if (res.status === 200) {
-        // Show success message as inline text
         login({firstname: res.data.firstname, lastname: res.data.lastname, email})
         router.push('/');
       } 

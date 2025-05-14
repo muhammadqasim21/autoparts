@@ -13,7 +13,6 @@ async function handler(req, res) {
       const db = client.db();
       const usersCollection = db.collection("users");
 
-      // ✅ Check if user already exists
       const existingUser = await usersCollection.findOne({ userEmail: email });
       if (!existingUser) {
         return res.status(400).json({ message: "Email not found. Register yourself" });

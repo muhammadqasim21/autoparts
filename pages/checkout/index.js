@@ -28,7 +28,6 @@ export default function Checkout() {
   console.log(cartItems)
   useEffect(() => {
     if (cartItems.length === 0 && !hasPlacedOrder.current) {
-      // Redirect to the cart page if the cart is empty
       router.push('/cart'); 
     }
   }, [cartItems, router]);
@@ -50,7 +49,6 @@ export default function Checkout() {
       date: new Date().toLocaleDateString()
     };
     try {
-      // API call to place order
       const baseUrl = process.env.NEXT_PUBLIC_API_URL;
       const response = await axios.post(`${baseUrl}/api/orders`, orderData);
   
@@ -180,11 +178,7 @@ export default function Checkout() {
                 <div className="space-y-4">
                   {cartItems.map((item) => (
                     <div key={item.id} className="flex items-center space-x-4">
-                      {/* <img
-                        src={item.image}
-                        alt={item.name}
-                        className="w-16 h-16 object-cover rounded"
-                      /> */}
+                      
                       <div className="flex-1">
                         <h3 className="text-sm font-medium text-gray-900 text-black">{item.productName}</h3>
                         <p className="text-sm text-gray-500">Qty: {item.quantity}</p>

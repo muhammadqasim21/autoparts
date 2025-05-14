@@ -35,7 +35,7 @@ export default function Cart() {
                     <li key={item._id} className="p-6">
                       <div className="flex items-center">
                         <div className="flex-shrink-0 w-24 h-24 bg-gray-200 rounded-md">
-                          {/* Image placeholder */}
+                          
                         </div>
                         <div className="ml-6 flex-1">
                           <div className="flex items-center justify-between">

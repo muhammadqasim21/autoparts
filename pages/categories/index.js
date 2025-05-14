@@ -16,7 +16,6 @@ export default function Categories({categories}) {
                 <p className="text-gray-600 mb-4">{category.description}</p>
                 
                 <div className="mb-4">
-                  {/* <h3 className="text-sm font-medium text-gray-900 mb-2">Subcategories:</h3> */}
                   <div className="flex flex-wrap gap-2">
                   </div>
                 </div>

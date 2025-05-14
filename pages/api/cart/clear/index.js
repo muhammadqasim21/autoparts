@@ -1,5 +1,5 @@
 import { MongoClient } from "mongodb";
-import bcrypt from "bcryptjs";
+
 
 async function handler(req, res) {
   if (req.method === "POST") {

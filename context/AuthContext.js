@@ -28,7 +28,7 @@ export function AuthProvider({ children }) {
     checkAuth();
   }, []);
 
-  // User login/logout
+  
   const login = (userData) => {
     setUser(userData);
     localStorage.setItem('user', JSON.stringify(userData));
@@ -43,7 +43,7 @@ export function AuthProvider({ children }) {
     }
   };
 
-  // Admin login/logout
+  
   const loginAdmin = (token) => {
     setAdmin(token);
     localStorage.setItem('adminToken', token);

@@ -13,9 +13,8 @@ export default function AdminLogin() {
   const {loginAdmin} = useAuth();
   const handleSubmit = (e) => {
     e.preventDefault();
-    // In a real app, you would validate against your admin database
     if (formData.email === 'admin@motohub.com' && formData.password === 'admin123') {
-      loginAdmin('sample-admin-token');
+      loginAdmin('123245admin');
       router.push('/admin/dashboard');
     } else {
       setError('Invalid credentials');

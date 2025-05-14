@@ -3,7 +3,7 @@ import bcrypt from "bcryptjs";
 
 async function handler(req, res) {
   if (req.method === 'GET') {
-    // const { firstName, lastName, email, password } = req.body;
+    
     const client = await MongoClient.connect(
       process.env.MONGODB_URI
       

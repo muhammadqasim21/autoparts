@@ -8,7 +8,7 @@ export default function Profile() {
   const { user } = useAuth();
   const [activeTab, setActiveTab] = useState('profile');
   const [orderHistory, setOrderHistory] = useState([]);
-  const [loading, setLoading] = useState(false);  // New state for loading
+  const [loading, setLoading] = useState(false); 
 
   useEffect(() => {
     if (activeTab === 'orders' && user?.email) {
@@ -17,7 +17,7 @@ export default function Profile() {
   }, [activeTab, user?.email]);
 
   const fetchOrders = async () => {
-    setLoading(true); // Start loading
+    setLoading(true); 
     try {
       const baseUrl = process.env.NEXT_PUBLIC_API_URL;
       const response = await axios.get(`${baseUrl}/api/orders?email=${user.email}`);
@@ -26,7 +26,7 @@ export default function Profile() {
     } catch (error) {
       console.error('Failed to fetch orders', error);
     } finally {
-      setLoading(false); // Stop loading
+      setLoading(false); 
     }
   };
 
@@ -35,7 +35,6 @@ export default function Profile() {
       <Navbar />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="bg-white shadow-lg rounded-lg overflow-hidden">
-          {/* Tabs */}
           <div className="border-b border-gray-200">
             <nav className="flex">
               <button
@@ -61,7 +60,6 @@ export default function Profile() {
             </nav>
           </div>
 
-          {/* Profile Content */}
           {activeTab === 'profile' && (
             <div className="p-6">
               <h2 className="text-2xl font-bold text-gray-900 mb-6">Personal Details</h2>
@@ -88,7 +86,6 @@ export default function Profile() {
             </div>
           )}
 
-          {/* Order History Content */}
           {activeTab === 'orders' && (
             <div className="p-6">
               <h2 className="text-2xl font-bold text-gray-900 mb-6">Order History</h2>

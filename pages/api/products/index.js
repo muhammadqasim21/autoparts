@@ -30,7 +30,6 @@ async function handler(req, res) {
       const db = client.db();
       const productsCollection = db.collection('products');
   
-      // Auto-increment product id
       const lastProduct = await productsCollection.find().sort({ id: -1 }).limit(1).toArray();
       console.log(lastProduct);
       let newId = 1;

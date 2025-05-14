@@ -1,4 +1,4 @@
-import { MongoClient, ObjectId } from "mongodb";
+import { MongoClient } from "mongodb";
 
 async function handler(req, res) {
   const { id } = req.query;
@@ -12,7 +12,6 @@ async function handler(req, res) {
       const db = client.db();
       const categoriesCollection = db.collection('categories');
 
-      // Find category by id (convert id to number if you’re using numeric ids)
       const category = await categoriesCollection.findOne({ id: Number(id) });
 
       if (!category) {

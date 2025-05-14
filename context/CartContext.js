@@ -9,19 +9,19 @@ export function CartProvider({ children }) {
   const { user } = useAuth();
 
   console.log(user);
-  // ✅ Fetch cart from DB when user logs in
+  
   useEffect(() => {
     if (user ) {
       fetchCartFromDB();
     } else {
-      setCartItems([]); // Clear cart if user logs out
+      setCartItems([]); 
     }
   }, [user]);
 
   const fetchCartFromDB = async () => {
     try {
       const response = await axios.get('/api/cart', {
-        params: { userEmail: user.email }, // 👈 Correct way to send query params in GET
+        params: { userEmail: user.email }, 
       });
       console.log(response.data);
       setCartItems(response.data);
@@ -34,7 +34,7 @@ export function CartProvider({ children }) {
     if (!user) {
       return;
     }
-    // ✅ Update local state immediately (for instant UI feedback)
+    
     setCartItems((prevItems) => {
         const existingItem = prevItems.find((item) => item.productId === product.id);
         
@@ -51,7 +51,7 @@ export function CartProvider({ children }) {
               productId: product.id,
               productName: product.name,
               productPrice: product.price,
-              userEmail: user.email ,  // Provide user email here
+              userEmail: user.email ,  
               quantity: 1
             }
           ];
@@ -59,7 +59,7 @@ export function CartProvider({ children }) {
       });
       
     console.log("In Add function",cartItems);
-    // ✅ Sync to DB
+    
     try {
       await axios.post('/api/cart', {
         product,
@@ -80,13 +80,13 @@ export function CartProvider({ children }) {
     const existingItem = cartItems.find((item) => item.productId === id);
 
     if (!existingItem) {
-      // ✅ Item is missing locally, fetch product info from backend
+      
       try {
-        const productResponse = await axios.get(`/api/products/${id}`); // Make sure you have this API
+        const productResponse = await axios.get(`/api/products/${id}`); 
         const products = productResponse.data;
   const product = products.find((product) => product.id === Number(id));
   
-        // Now call addToCart
+        
         await addToCart(product);
       } catch (error) {
         console.error('Error fetching product info to re-add to cart:', error);
@@ -101,7 +101,7 @@ export function CartProvider({ children }) {
 
     console.log("In Update function",cartItems);
 
-    // ✅ Send updated quantity to DB (Optional)
+    
     try {
       await axios.put('/api/cart', {
         productId: id,
